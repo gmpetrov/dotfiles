@@ -1,0 +1,3 @@
+" General bindings
+
+" inoremap [ []<Left>
