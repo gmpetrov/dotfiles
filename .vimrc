@@ -17,18 +17,10 @@ au FileType lua nmap <Leader>r :!clear <CR> :!th %:p <CR>
 au FileType python nmap <Leader>r :!clear <CR> :!python %:p <CR>
 au FileType python nmap <Leader>t :!clear <CR> :!python *.test.py <CR>
 
-au CompleteDone * pclose
-
-" Neocomplete
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" <TAB>: completion.
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
+" au CompleteDone * pclose
 
 " Nearthree toogle shortcut
-map <C-m> :NERDTreeToggle<CR>
+" map <C-m> :NERDTreeToggle<CR>
 
 " Remove trailling space on space
 autocmd BufWritePre * :%s/\s\+$//e
@@ -50,6 +42,10 @@ nnoremap <C-W>O :call MaximizeToggle()<CR>
 nnoremap <C-W>o :call MaximizeToggle()<CR>
 nnoremap <C-W><C-O> :call MaximizeToggle()<CR>
 
+au BufWrite * :Autoformat
+let g:autoformat_autoindent = 0
+
+
 "
 " Section : Functions
 "
@@ -69,19 +65,3 @@ function! MaximizeToggle()
         only
     endif
 endfunction
-
-" Functions to avoid conflicts with NeoComplete and MultiCusor plugins
-function! Multiple_cursors_before()
-    if exists(':NeoCompleteLock')==2
-        exe 'NeoCompleteLock'
-    endif
-endfunction
-
-function! Multiple_cursors_after()
-    if exists(':NeoCompleteUnlock')==2
-        exe 'NeoCompleteUnlock'
-    endif
-endfunction
-
-au BufWrite * :Autoformat
-let g:autoformat_autoindent = 0
