@@ -16,20 +16,20 @@ set backspace=indent,eol,start
 au FileType lua nmap <Leader>r :!clear <CR> :!th %:p <CR>
 au FileType python nmap <Leader>r :!clear <CR> :!python %:p <CR>
 au FileType python nmap <Leader>t :!clear <CR> :!python *.test.py <CR>
+au FileType go nmap <Leader>t :!clear <CR> :!go run *(?!test).go <CR>
+au FileType go nmap <Leader>m :!clear <CR> :!make <CR>
 
-" au CompleteDone * pclose
+au CompleteDone * pclose
 
 " Nearthree toogle shortcut
 " map <C-m> :NERDTreeToggle<CR>
 
 " Remove trailling space on space
-autocmd BufWritePre * :%s/\s\+$//e
+" autocmd BufWritePre * :%s/\s\+$//e
 
-" Set vim theme
-colorscheme elflord
 
 " Set colors of completion window
-highlight Pmenu ctermbg=lightcyan ctermfg=black
+" highlight Pmenu ctermbg=lightcyan ctermfg=black
 
 " Go to begin/end of line unix's shortcut
 inoremap <C-e> <C-o>$
@@ -44,7 +44,11 @@ nnoremap <C-W><C-O> :call MaximizeToggle()<CR>
 
 au BufWrite * :Autoformat
 let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
 
+map <C-m> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "
 " Section : Functions
@@ -65,3 +69,7 @@ function! MaximizeToggle()
         only
     endif
 endfunction
+
+syntax enable
+set background=dark
+colorscheme solarized
