@@ -50,6 +50,9 @@ let g:autoformat_remove_trailing_spaces = 0
 map <C-m> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+
 "
 " Section : Functions
 "
