@@ -2,7 +2,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'w0rp/ale'
-Plug 'prettier/vim-prettier'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'majutsushi/tagbar'
@@ -14,6 +13,9 @@ Plug 'Raimondi/delimitMate'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'altercation/vim-colors-solarized'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 call plug#end()
 
 filetype plugin indent on
@@ -59,10 +61,21 @@ nnoremap <C-W>O :call MaximizeToggle()<CR>
 nnoremap <C-W>o :call MaximizeToggle()<CR>
 nnoremap <C-W><C-O> :call MaximizeToggle()<CR>
 
-" au BufWrite * Prettier
+" au BufWrite *.js Prettier
 " let g:autoformat_autoindent = 0
 " let g:autoformat_retab = 0
 " let g:autoformat_remove_trailing_spaces = 0
+"
+" let g:prettier#autoformat=0 
+" "#autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
+let b:ale_linters = { 'python': ['flake8'], 'javascript': ['prettier']}
+let g:ale_fixers = { 'javascript': ['prettier'], 'css': ['prettier'], 'python': ['autopep8'] }
+
+
+let g:ale_linters_explicit = 1
+let g:ale_fix_on_save = 1
+
 
 map <C-m> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
